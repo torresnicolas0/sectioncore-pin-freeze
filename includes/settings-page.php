@@ -18,6 +18,7 @@ if (class_exists('WPPF_Settings_Page')) {
  */
 class WPPF_Settings_Page
 {
+	const SECTIONCORE_PARENT_MENU_SLUG = 'sectioncore-settings';
 	const OPTION_CAPTURE_SELECTOR = 'wppf_capture_selector'; // Legacy.
 	const OPTION_CAPTURE_SELECTOR_TYPE = 'wppf_capture_selector_type';
 	const OPTION_CAPTURE_SELECTOR_VALUE = 'wppf_capture_selector_value';
@@ -32,7 +33,7 @@ class WPPF_Settings_Page
 	 */
 	public static function init()
 	{
-		add_action('admin_menu', array(__CLASS__, 'register_settings_page'));
+		add_action('admin_menu', array(__CLASS__, 'register_settings_page'), 95);
 		add_action('admin_init', array(__CLASS__, 'register_settings'));
 	}
 
@@ -43,6 +44,18 @@ class WPPF_Settings_Page
 	 */
 	public static function register_settings_page()
 	{
+		if (self::has_sectioncore_parent_menu()) {
+			add_submenu_page(
+				self::SECTIONCORE_PARENT_MENU_SLUG,
+				__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
+				__('Pin & Freeze', 'sectioncore-pin-freeze'),
+				'architect_options',
+				'sectioncore-pin-freeze',
+				array(__CLASS__, 'render_page')
+			);
+			return;
+		}
+
 		add_options_page(
 			__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
 			__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
@@ -50,6 +63,13 @@ class WPPF_Settings_Page
 			'sectioncore-pin-freeze',
 			array(__CLASS__, 'render_page')
 		);
+	}
+
+	private static function has_sectioncore_parent_menu(): bool
+	{
+		global $admin_page_hooks;
+
+		return is_array($admin_page_hooks) && isset($admin_page_hooks[self::SECTIONCORE_PARENT_MENU_SLUG]);
 	}
 
 	/**
