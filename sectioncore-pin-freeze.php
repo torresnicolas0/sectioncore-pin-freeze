@@ -10,8 +10,6 @@
  * Author URI:        https://linkedin.com/in/torresnicolas/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       sectioncore-pin-freeze
- * Domain Path:       /languages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -89,15 +87,6 @@ function wppf_requirements_met() {
 }
 
 /**
- * Load plugin text domain.
- *
- * @return void
- */
-function wppf_load_textdomain() {
-	load_plugin_textdomain( 'sectioncore-pin-freeze', false, dirname( plugin_basename( WPPF_PLUGIN_FILE ) ) . '/languages' );
-}
-
-/**
  * Deactivate plugin if requirements are not met.
  *
  * @return void
@@ -145,8 +134,6 @@ if ( ! wppf_requirements_met() ) {
 	add_action( 'admin_notices', 'wppf_requirements_notice' );
 	return;
 }
-
-add_action( 'plugins_loaded', 'wppf_load_textdomain' );
 
 require_once WPPF_PLUGIN_DIR . 'includes/settings-page.php';
 require_once WPPF_PLUGIN_DIR . 'includes/history-manager.php';
@@ -367,9 +354,6 @@ class WPPF_Plugin {
 			)
 		);
 
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'wppf-editor-script', 'sectioncore-pin-freeze', WPPF_PLUGIN_DIR . 'languages' );
-		}
 	}
 
 	/**
