@@ -44,21 +44,21 @@ class WPPF_Settings_Page
 	 */
 	public static function register_settings_page()
 	{
-		if (self::has_sectioncore_parent_menu()) {
-			add_submenu_page(
-				self::SECTIONCORE_PARENT_MENU_SLUG,
-				__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
-				__('Pin & Freeze', 'sectioncore-pin-freeze'),
-				'architect_options',
-				'sectioncore-pin-freeze',
-				array(__CLASS__, 'render_page')
+			if (self::has_sectioncore_parent_menu()) {
+				add_submenu_page(
+					self::SECTIONCORE_PARENT_MENU_SLUG,
+					__('Pin & Freeze', 'sectioncore-pin-freeze'),
+					__('Pin & Freeze', 'sectioncore-pin-freeze'),
+					'architect_options',
+					'sectioncore-pin-freeze',
+					array(__CLASS__, 'render_page')
 			);
 			return;
 		}
 
 		add_options_page(
-			__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
-			__('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'),
+			__('Pin & Freeze', 'sectioncore-pin-freeze'),
+			__('Pin & Freeze', 'sectioncore-pin-freeze'),
 			'architect_options',
 			'sectioncore-pin-freeze',
 			array(__CLASS__, 'render_page')
