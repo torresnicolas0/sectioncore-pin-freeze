@@ -221,7 +221,7 @@ class WPPF_Settings_Page
 		<div class="wrap">
 			<div class="sectioncore-help-header">
 				<h1><?php esc_html_e('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'); ?></h1>
-				<a href="#TB_inline?width=920&height=680&inlineId=wppf-architect-help-modal" class="button button-secondary thickbox"><?php esc_html_e('Ayuda', 'sectioncore-pin-freeze'); ?></a>
+				<a href="#TB_inline?width=920&height=680&inlineId=wppf-architect-help-modal" class="button button-secondary thickbox" title="Ayuda SectionCore"><?php esc_html_e('Ayuda', 'sectioncore-pin-freeze'); ?></a>
 			</div>
 			<style>
 				.sectioncore-help-header {
