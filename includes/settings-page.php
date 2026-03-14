@@ -215,7 +215,9 @@ class WPPF_Settings_Page
 		if (!current_user_can('architect_options')) {
 			return;
 		}
-		$help_markdown = self::get_architect_help_markdown();
+		$help_markdown = function_exists('sectioncore_get_architect_help_markdown')
+			? sectioncore_get_architect_help_markdown('pin-freeze')
+			: self::get_architect_help_markdown();
 		add_thickbox();
 		?>
 		<div class="wrap">
@@ -236,11 +238,15 @@ class WPPF_Settings_Page
 				}
             </style>
 			<div id="wppf-architect-help-modal" style="display:none;">
-				<?php if (function_exists("sectioncore_render_markdown")) : ?>
-                <div class="sectioncore-help-markdown sectioncore-help-markdown--rendered"><?php echo sectioncore_render_markdown($help_markdown); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-                <?php else : ?>
-                <pre class="sectioncore-help-markdown sectioncore-help-markdown--plain" style="white-space: pre-wrap; word-break: break-word; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; padding: 16px; margin: 0; max-height: 62vh; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; line-height: 1.55;"><?php echo esc_html($help_markdown); ?></pre>
-                <?php endif; ?>
+				<?php
+				if (function_exists('sectioncore_render_architect_help_modal')) {
+					echo sectioncore_render_architect_help_modal('pin-freeze', $help_markdown); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				} elseif (function_exists('sectioncore_render_markdown')) {
+					echo '<div class="sectioncore-help-markdown sectioncore-help-markdown--rendered">' . sectioncore_render_markdown($help_markdown) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				} else {
+					echo '<pre class="sectioncore-help-markdown sectioncore-help-markdown--plain">' . esc_html($help_markdown) . '</pre>';
+				}
+				?>
 			</div>
 			<form method="post" action="options.php">
 				<?php
