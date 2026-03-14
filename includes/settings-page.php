@@ -231,26 +231,11 @@ class WPPF_Settings_Page
 					gap: 16px;
 					margin-bottom: 12px;
 				}
-				.sectioncore-help-header h1 {
+                .sectioncore-help-header h1 {
 					margin: 0;
 				}
-				.sectioncore-help-markdown {
-					white-space: pre-wrap;
-					word-break: break-word;
-					background: #f6f7f7;
-					border: 1px solid #dcdcde;
-					border-radius: 6px;
-					padding: 16px;
-					margin: 0;
-					max-height: 62vh;
-					overflow: auto;
-					font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-					font-size: 13px;
-					line-height: 1.55;
-				}
-			</style>
+            </style>
 			<div id="wppf-architect-help-modal" style="display:none;">
-				<h2 style="margin-top:0;"><?php esc_html_e('Ayuda para Arquitectos', 'sectioncore-pin-freeze'); ?></h2>
 				<?php if (function_exists("sectioncore_render_markdown")) : ?>
                 <div class="sectioncore-help-markdown sectioncore-help-markdown--rendered"><?php echo sectioncore_render_markdown($help_markdown); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
                 <?php else : ?>
