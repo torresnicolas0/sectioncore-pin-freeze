@@ -215,9 +215,44 @@ class WPPF_Settings_Page
 		if (!current_user_can('architect_options')) {
 			return;
 		}
+		$help_markdown = self::get_architect_help_markdown();
+		add_thickbox();
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'); ?></h1>
+			<div class="sectioncore-help-header">
+				<h1><?php esc_html_e('SectionCore Pin & Freeze', 'sectioncore-pin-freeze'); ?></h1>
+				<a href="#TB_inline?width=920&height=680&inlineId=wppf-architect-help-modal" class="button button-secondary thickbox"><?php esc_html_e('Ayuda', 'sectioncore-pin-freeze'); ?></a>
+			</div>
+			<style>
+				.sectioncore-help-header {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 16px;
+					margin-bottom: 12px;
+				}
+				.sectioncore-help-header h1 {
+					margin: 0;
+				}
+				.sectioncore-help-markdown {
+					white-space: pre-wrap;
+					word-break: break-word;
+					background: #f6f7f7;
+					border: 1px solid #dcdcde;
+					border-radius: 6px;
+					padding: 16px;
+					margin: 0;
+					max-height: 62vh;
+					overflow: auto;
+					font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+					font-size: 13px;
+					line-height: 1.55;
+				}
+			</style>
+			<div id="wppf-architect-help-modal" style="display:none;">
+				<h2 style="margin-top:0;"><?php esc_html_e('Ayuda para Arquitectos', 'sectioncore-pin-freeze'); ?></h2>
+				<pre class="sectioncore-help-markdown"><?php echo esc_html($help_markdown); ?></pre>
+			</div>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields('wppf_settings');
@@ -321,5 +356,17 @@ class WPPF_Settings_Page
 		}
 
 		return false;
+	}
+
+	private static function get_architect_help_markdown(): string
+	{
+		$path = dirname(__DIR__) . '/docs/architect-help.md';
+		if (!is_readable($path)) {
+			return "# Pin & Freeze\n\nNo hay documentación de ayuda disponible todavía.";
+		}
+
+		$contents = file_get_contents($path);
+
+		return is_string($contents) && $contents !== '' ? $contents : "# Pin & Freeze\n\nNo hay documentación de ayuda disponible todavía.";
 	}
 }
