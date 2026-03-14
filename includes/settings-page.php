@@ -239,7 +239,7 @@ class WPPF_Settings_Page
 				<?php if (function_exists("sectioncore_render_markdown")) : ?>
                 <div class="sectioncore-help-markdown sectioncore-help-markdown--rendered"><?php echo sectioncore_render_markdown($help_markdown); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
                 <?php else : ?>
-                <pre class="sectioncore-help-markdown sectioncore-help-markdown--plain"><?php echo esc_html($help_markdown); ?></pre>
+                <pre class="sectioncore-help-markdown sectioncore-help-markdown--plain" style="white-space: pre-wrap; word-break: break-word; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; padding: 16px; margin: 0; max-height: 62vh; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; line-height: 1.55;"><?php echo esc_html($help_markdown); ?></pre>
                 <?php endif; ?>
 			</div>
 			<form method="post" action="options.php">
