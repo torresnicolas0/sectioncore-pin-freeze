@@ -1,57 +1,48 @@
 # SectionCore Pin & Freeze
 
-WordPress plugin to pin/freeze rendered HTML for:
+Plugin de la suite SectionCore para congelar HTML renderizado de bloques, entradas o páginas enteras.
 
-## Repository
+## Rol en la suite
 
-- https://github.com/torresnicolas0/sectioncore-pin-freeze
+- Convertir renders dinámicos en HTML estático cuando hace falta estabilizar un bloque o una página.
+- Bloquear la edición visual cuando el contenido está pineado.
+- Capturar HTML desde el frontend o desde el estado del editor.
 
-- Individual Gutenberg blocks.
-- Entire posts/pages.
+## Estado actual
 
-When pinned, dynamic rendering is replaced by static HTML and the visual editor is locked to avoid accidental edits.
+- La vista previa del bloque pineado se renderiza en el canvas del editor.
+- El inspector guarda historial por bloque con las últimas 5 versiones aplicadas.
+- La acción de borrar borrador se retiró para simplificar el flujo.
+- Las acciones de lista muestran solo `Pinear` o `Despinear` según el estado.
+- El panel de post/page mantiene el flujo de captura y el historial de pines.
 
-## Release
-
-- Current version: `1.0.4`
-- Renamed public identity to `SectionCore Pin & Freeze` (`sectioncore-pin-freeze`) for WordPress.org submission compliance.
-- Pinned block preview now renders in the editor canvas (no isolated iframe preview).
-- Block inspector now stores a per-block history (latest 5 applied versions) with restore action.
-- Block sidebar action `Revertir borrador` was removed to simplify the apply workflow.
-- Admin list row actions now show only `Pinear` or `Despinear` depending on state.
-
-## Requirements
+## Requisitos
 
 - WordPress 5.2+
 - PHP 7.2+
 
-## Installation
+## Uso
 
-1. Copy this plugin folder to `wp-content/plugins/sectioncore-pin-freeze`.
-2. Activate **SectionCore Pin & Freeze** from WordPress admin.
-3. Edit a post/page in Gutenberg and use:
-   - Block inspector: pin per block.
-   - Document panel: pin full post/page.
+1. Instalar y activar el plugin.
+2. Abrir una entrada o página en Gutenberg.
+3. Pinear un bloque individual desde el inspector o pinear el contenido completo desde el panel del documento.
 
-## Development
+## Desarrollo
 
 ```bash
 npm install
 npm run build
 ```
 
-Compiled assets are generated in `build/`.
+## Archivos principales
 
-## Main Files
+- `sectioncore-pin-freeze.php` bootstrap y runtime hooks.
+- `includes/settings-page.php` pantalla de ajustes.
+- `includes/ajax-fetcher.php` captura del frontend.
+- `includes/history-manager.php` historial de snapshots.
+- `docs/BLOCK_PIN_RENDER_CAPTURE.md` nota técnica de captura.
 
-- `sectioncore-pin-freeze.php` plugin bootstrap and runtime hooks.
-- `includes/settings-page.php` settings page (`Ajustes > SectionCore Pin & Freeze`).
-- `includes/ajax-fetcher.php` frontend capture via AJAX.
-- `includes/history-manager.php` snapshot history manager.
-- `docs/BLOCK_PIN_RENDER_CAPTURE.md` technical note for dynamic block pin capture strategy.
-- `src/` editor-side React code.
-- `languages/` translations.
+## Documentación relacionada
 
-## License
-
-GPL-2.0-or-later
+- [Ayuda para arquitecto](https://github.com/torresnicolas0/sectioncore-pin-freeze/blob/main/docs/architect-help.md)
+- [Ayuda básica del sitio](https://github.com/torresnicolas0/sectioncore-pin-freeze/blob/main/docs/site-help.md)
